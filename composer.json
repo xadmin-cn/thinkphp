@@ -1,5 +1,5 @@
 {
-    "name": "xadmin-cn",
+    "name": "xadmin",
     "description": "xadmin thinkphp 6",
     "license": "www.xw.ai",
     "authors": [
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "xadmin\\": "src/xadmin"
+            "xadmin\\": "src"
         }
     }   
 }
