@@ -9,7 +9,6 @@
             "email": "ai@ahui.ai"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=7.1.0"
     },
