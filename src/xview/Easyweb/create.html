@@ -1,0 +1,25 @@
+{if (isset($local.request.open_type) && $local.request.open_type=='pop')}
+<html  style="background-color: #ffffff">
+<body>
+<div class="layui-card-body" style="padding: 15px;">
+    {$local.viewForm|raw}
+</div>
+</body>
+</html>
+{else}
+<html  style="background-color: #fbfbfb">
+<body>
+<div class="layui-fluid" style="margin: 10px; ">
+    <div class="layui-card">
+        <div class="layui-card-header" style="padding-left: 30px;font-size: 16px;">{if isset($local.icon)} <i class="{$local.icon}"></i>{/if} {$local.title|default=''}</div>
+        <div class="layui-card-body" style="padding: 15px;">
+            {$local.viewForm|raw}
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{/if}
+
+
+

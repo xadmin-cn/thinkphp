@@ -1,0 +1,10 @@
+表单提交
+text:单文本框
+textarea:多文本框
+radio:单选框
+checkbox:复选框
+select:下拉框
+uploadImage:上传单张图片
+uploadImages:上传多张图片
+uploadFile:上传文件
+uploadFiles:上传多个文件

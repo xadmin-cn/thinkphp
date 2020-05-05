@@ -1,0 +1,36 @@
+﻿{layout name="layout" /}
+<style>
+    .icon {
+        padding: 5px;
+        margin-top: -15px;
+    }
+    .icon li{
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        cursor: pointer;
+        border: 1px solid #e6e6e6;
+        margin: 3px;
+        text-align: center;
+        border-radius: 1px;
+        -webkit-transition: all .4s ease;
+        transition: all .4s ease;
+        float: left;
+    }
+</style>
+<ul class="icon">
+    {foreach name="data" item="item"}
+    <a href="javascript:void(0)" onclick="iicon('fa {$item}')">
+    <li>
+        <i class="fa {$item}"></i>
+    </li>
+    </a>
+    {/foreach}
+</ul>
+<script>
+    function iicon(val) {
+        index1 = parent.layer.getFrameIndex(window.name);
+        parent.layer.getChildFrame('#icon_{$local.request.iconkey}',{$local.request.iframpage}).val(val);
+        parent.layer.close(index1);
+    }
+</script>

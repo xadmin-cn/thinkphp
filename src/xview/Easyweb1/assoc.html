@@ -1,0 +1,59 @@
+{include file="header"}
+
+<Div style="margin: 8px 8px -10px 8px;">
+<!-- 正文开始 -->
+<div class="search clearfix layui-form">
+
+    <input type="text" name="keywords" placeholder="输入搜索关键词" class="layui-input" value="" style="width: 265px;float: left"><a rel="search" lay-filter="Xsubmit" lay-submit="" class=" layui-btn"  style="margin-left: -5px;">搜索</a>
+</div>
+<table id="tableUser" lay-filter="tableUser"></table>
+
+    <!-- 表格操作列 -->
+    <script type="text/html" id="tableBarUser">
+        <a class="layui-btn  layui-btn-xs" lay-event="select">选择</a>
+    </script>
+    <script>
+        layui.use([ 'form', 'table'], function () {
+            var $ = layui.jquery;
+            var form = layui.form;
+            var table = layui.table;
+
+            // 渲染表格
+            var insTb = table.render({
+                    elem: '#tableUser',
+                    url: '{$local.url}&action=data',
+                    limit:{$local.limit},
+                toolbar: false,
+                page: {
+                layout: [ 'prev','count', 'page', 'next'] //自定义分页布局
+                    ,groups: 4 //只显示 1 个连续页码
+            },
+            cols: [[
+                {type: 'numbers'},
+                {field: '{$local.value.k}',  title: '{$local.value.v}',width:80},
+                {field: '{$local.key.k}',  title: '{$local.key.v}'},
+                {align: 'center', toolbar: '#tableBarUser', title: '操作',width:60}
+            ]]
+        });
+
+            // 搜索
+            form.on('submit(Xsubmit)', function (data) {
+                insTb.reload({where: data.field}, 'data');
+            });
+
+            // 工具条点击事件
+            table.on('tool(tableUser)', function (obj) {
+                var data = obj.data;
+                var layEvent = obj.event;
+                if (layEvent === 'select') { // 修改
+                    index1 = parent.layer.getFrameIndex(window.name);
+                    parent.layer.getChildFrame('#assoc_{$local.request.assocId}',{$local.request.iframpage}).val(data.{$local.key.k});
+                    parent.layer.getChildFrame('#assoc_key_{$local.request.assocId}',{$local.request.iframpage}).val(data.{$local.value.k});
+                    parent.layer.close(index1);
+                }
+            });
+
+
+        });
+    </script>
+</Div>

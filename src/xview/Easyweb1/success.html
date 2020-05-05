@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>成功页面</title>
+    <style>
+        html, body, ul, h2, p{margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+        body, button, input, textarea {font: 12px/1.5 Tahoma, Helvetica, Arial, 'Microsoft YaHei', sans-serif;}
+        .clearfix:after { content:"."; display:block; height:0; visibility:hidden; clear:both; }
+        .clearfix { zoom:1; }
+
+        body{background: #fdfdfd; min-width: 960px; height: 100%;}
+
+        .se-success{padding:130px 0 47px; background: #fdfdfd;}
+        .se-success .center{margin:auto; width: 550px;}
+        .se-success .cartoon{float: left; width: 118px; height: 118px;  }
+        .se-success .text{float: left; margin-left: 20px; width: 294px;}
+        .se-success .text h2{font-size: 24px; }
+        .se-success .text p{font-size: 14px; color: #838383; white-space: nowrap;}
+        .se-success .buttons{margin-top: 10px;}
+        .se-success .buttons a{
+            display: inline-block;
+            min-width: 149px;
+            height: 33px;
+            line-height: 31px;
+            border-radius: 2px;
+            background-color: #4bd252;
+            border: solid 1px #36b148;
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            box-sizing:border-box;
+            cursor: pointer;
+            -webkit-user-select:none;
+        }
+        .se-success .buttons .network{background: #4bd252 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAYAAADtc08vAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwOS8xNC8xNVA22ZoAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzQGstOgAAAAsklEQVQoka2SsQ3CMBBFn5NUxJJ3QEKCSGxCxxypsgIVBRVr0LFAikxAmQY2MFIKGnQUSROCDXF4jeX7uu/7tpW1FsAAlnEoYwzRyKYBSbfeARXkICKlhFMqERGnOa2kPMMlTgXI6wKA4+IQZnB93HwywPRX6N2BIOR14Tw5S1fs57tebRBBxyk61gA0z6artXsdpf4J3tlctgCc1ydnhL/9xI9ks+VXA2+EX4iAakJ/9QLMPGw0a6Lf6gAAAABJRU5ErkJggg==) no-repeat 17px center; padding-left: 22px;margin-right: 6px;}
+        .se-success .buttons .network:hover{background-color: #4fe256;border: solid 1px #49c74f;}
+        .se-success .buttons .network:active{background-color: #40bf46;border: solid 1px #31b945;}
+        .se-success .buttons .refresh{min-width: 139px;border: solid 1px #49a9df; background: #68c0f2 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwOS8xNC8xNVA22ZoAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzQGstOgAAABSUlEQVQ4jY3TMWtVQRAF4JNrHqJIjIWVtiGVYCFYqCgWWqXQn2AZ/AdiH0hlYSGInWIRsFEEwUZ7BW2NAUXQBDGoSIQkn81Elue9Dw8s987s2TNnZ3eDjI0FrOATtvAe93Gmh5s2mMETw9jFPRzuEziKN0X8iOuYr/wFPCwBeI1jWMZ8MI3nNfkCR/qs4jJ+Fm+7vme7JF2Sl0nWklxJ8i39WE+yWv/7/mabCvsHKgcdnvX05XSXZFRavwcqJ8lukktJriZ51+R/pZp2AwcmOGjHCIvYwIlgs+x8wLWy+z9ChzDdCuzhFY5PWDjVxt3YXn8kuZvk84R+PEhyO8nM3im0DrZrG0PVl4q3iTl1E1dwCo8aocc4V0d7EBfxtOa2Kv7nLYxwCzuG8QXnW1d9Nk/iDr7Woh28xU3MjvOnMKFfmU3yvS5SL/4Azp+YGjzK/iEAAAAASUVORK5CYII=) no-repeat 26px center; padding-left: 13px;}
+        .se-success .buttons .refresh:hover{background-color: #82cef9;border: solid 1px #49a9df;}
+        .se-success .buttons .refresh:active{background-color: #56b3e8;border: solid 1px #49a9df;}
+    </style>
+</head>
+<body>
+<div class="se-success clearfix">
+    <div class="center">
+        <div ><img src="/xadmin/default/images/success.png" class="cartoon"> </div>
+        <div class="text">
+            <h2>hi，真不巧，网页走丢了。</h2>
+            <p>不如搜索一下你想要的，或者刷新网页试试吧。</p>
+            <p class="buttons">
+                <a id="button_network" class="network">救箱</a>
+                <a id="button_refresh" class="refresh">刷新试试</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

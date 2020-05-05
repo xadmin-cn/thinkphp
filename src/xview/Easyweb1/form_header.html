@@ -1,0 +1,145 @@
+
+<script type="text/javascript" src="/plugins/dragarrange/drag-arrange.js"></script>
+<script type="text/javascript" src="/xadmin/Default/js/upload.js"></script>
+<link rel="stylesheet" href="/xadmin/Default/css/upload.css"  media="all">
+
+<script type="text/javascript" src="/xadmin/Default/js/editor.js"></script>
+
+<script type="text/javascript" src="/editor/Ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="/editor/Ueditor/ueditor.all.min.js"></script>
+
+<script type="text/javascript" src="/editor/wangEditor/wangEditor.min.js"></script>
+
+
+<script type="text/javascript" src="/xadmin/Default/js/cascader.js"></script>
+<style>
+
+
+    .layui-form-label em{
+        font: bold 14px/20px tahoma, verdana;
+        color:#F60;
+        vertical-align: middle;
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .layui-form-selected dl {
+
+        display: block;
+
+    }
+
+</style>
+
+<script>
+
+    layui.use(['form','notice','admin','index'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var index = layui.index;
+        var admin = layui.admin;
+        var notice = layui.notice;
+
+        // 监听表单提交
+        form.on('submit(Xsubmit)', function (data) {
+            $.post("",data.field, function(res){
+                //var res = $.parseJSON(data);
+                
+                if(res.result=="dev") {
+                    console.log(res);
+                }else if(res.result=="error") {
+                    if(res.resultCode=='valicode') {
+                        notice.destroy();
+                        for (var i = 0; i < res['data'].length; i++) {
+                            notice.error({
+                                layout: 1,
+                                title: '',
+                                message: res['data'][i]
+                            });
+                        }
+                    }else{
+                        layer.alert(res.resultMsg, {icon: 2})
+                    }
+                }else{
+                    layer.msg(res.resultMsg, {icon: 1, time: 1000},function () {
+                        if(window.name==''){
+                            {if isset($local.request.open_type) && $local.request.open_type=="tab"}
+                            admin.closeThisTabs()
+                            window.parent.location.reload();
+                            {else}
+                            window.location.href = "{$local.listUrl}";
+                            {/if}
+                        }else{
+                            var index = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(index);
+                            window.parent.location.reload();
+                        }
+
+                    })
+
+                }
+            },'json')
+            return false;
+        });
+
+        //点击全选, 勾选
+        form.on('checkbox(allChoose)', function (data) {
+            alert(1)
+            var child = $(".seach-box input[type='checkbox']");
+            child.each(function (index, item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+
+        $(".close").click(function () {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        })
+
+        $(".checkbox_all").click(function (obj) {
+            var cla =  $(this).attr('data');
+            var child = $("."+cla+" input[type='checkbox']");
+            child.each(function (index, item) {
+                item.checked = 1;
+            });
+            form.render('checkbox');
+        })
+        $(".checkbox_not").click(function (obj) {
+            var cla =  $(this).attr('data');
+            var child = $("."+cla+" input[type='checkbox']");
+            child.each(function (index, item) {
+                item.checked = 0;
+            });
+            form.render('checkbox');
+        })
+
+    });
+    function assoc(url) {
+        var index = parent.layer.open({
+            type: 2,
+            id : 'assoc',
+
+            title:false,
+            area: ['350px', '410px'],
+            content: url+"&iframpage="+parent.layer.getFrameIndex(window.name)
+        });
+    }
+    function assoc_delete(ob) {
+        $("#assoc_key_"+ob).val("");
+        $("#assoc_"+ob).val("");
+    }
+
+
+    function icon(icon_name,url) {
+        var index = parent.layer.open({
+            type: 2,
+            id : 'icon',
+            title:false,
+            area: ['350px', '410px'],
+            content: url+"&iframpage="+parent.layer.getFrameIndex(window.name)
+        });
+    }
+
+
+</script>

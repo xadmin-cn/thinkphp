@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>{if isset($local.title)}{$local.title}{/if}  {if isset($local.site.name)}{$local.site.name}{/if}</title>
+    <link href="{$local.site.favicon|default='/xadmin/Easyweb/images/favicon.ico'}" rel="icon">
+    <link rel="stylesheet" href="/xadmincn/Easyweb/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="/xadmincn/Easyweb/module/admin.css"/>
+    <link rel="stylesheet" href="/xadmincn/Easyweb/css/xadmin.css"/>
+    <link rel="stylesheet" type="text/css" href="/xadmincn/Easyweb/plugins/awesome/css/font-awesome.min.css" />
+    <script type="text/javascript" src="/xadmincn/Easyweb/libs/layui/layui.js"></script>
+    <script type="text/javascript" src="/xadmincn/Easyweb/plugins/jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/xadmincn/Easyweb/js/common.js"></script>
+    <script>var xadmin_theme= "{$local.site.theme|default='default'}";</script>
+</head>
+<body>
+{__CONTENT__}
+</body>
+</html>

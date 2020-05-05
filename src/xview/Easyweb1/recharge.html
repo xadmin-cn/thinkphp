@@ -1,0 +1,129 @@
+{include file="header"}
+<style>
+    .account-balance {
+        height: 60px;
+        line-height: 50px;
+        padding: 0 15px;
+        background-color: rgba(218, 218, 218, 0.22);
+        margin-bottom: 30px;
+        margin-top: 10px;
+    }
+    .payment_list{
+        position: relative;
+    }
+    .payment_list li{
+        float: left;
+        margin-right: 10px;
+    }
+    .payment_list li img{
+        border: 1px solid #e6e6e6;
+        cursor: pointer;
+    }
+    .payment_list .checked img{
+        border: 1px solid #e67044;
+    }
+    .bottom_tip {
+        color:
+                #565656;
+        line-height: 180%;
+        border: 1px
+        #ececec solid;
+        background-color:
+                #fbfbfb;
+        padding: 14px;
+        margin-top: 20px;
+    }
+</style>
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+
+
+        <div class="layui-card-body layui-form">
+
+            <div class="account-balance" >
+                可用余额：<span class="red font-size-26">0</span> 元
+                <a href="/wallet/lists" class="layui-btn layui-btn-sm" style="margin-left: 40px;">收支明细</a>
+            </div>
+
+            <div class="layui-tab layui-tab-brief" lay-filter="component-tabs-hash">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">网上充值</li>
+                </ul>
+                <div class="layui-tab-content" style="margin-top: 10px">
+
+                    <label class="layui-form-label" style="text-align: left;padding-left: 0px;margin-left: -5px;">充值金额</label>
+                    <div class="layui-input-block">
+                        <input type="text" placeholder="请输入金额，单位为元" value="" style="width: 200px" name="amount" class="layui-input" lay-vertype="tips" lay-verify="required" lay-reqText="请输入充值金额">
+                    </div>
+                    <input name="pay_type" id="pay_type" value="alipay" type="hidden">
+
+                    <div class="layui-tab-item layui-show">
+                        <label class="layui-form-label" style="text-align: left;padding-left: 0px;margin-left: -5px;">支付通道</label>
+                        <div class="layui-input-block" style="margin-top: 20px;">
+                        <ul class="payment_list">
+                            <li class="checked" data-type="alipay"><img src="/xadmin/Default/images/payment/alipay_logo.gif" > </li>
+                            <li data-type="weixin"><img src="/xadmin/Default/images/payment/wxpay_native_logo.gif"  > </li>
+                        </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <label class="layui-form-label" style="text-align: left;padding-left: 0px;margin-left: 5px;"></label>
+            <div class="layui-input-block" style="margin-top: 20px; margin-left: 120px">
+            <button class="layui-btn"  lay-filter="Xsubmit" lay-submit="">立即充值</button>
+            </div>
+            <div class="bottom_tip" style="display: block;"><strong>充值说明：</strong><br>
+                三方支付，方便快捷，安全可靠：<br>
+                1、充值金额将直接进入钱包的余额里面。<br>
+                2、如果您有订单未支付，充值完成后请到订单管理，再进行支付。<br>
+                3、支付金额不能小于10元，不能高于20000。<br>
+                请您在充值时务必确认好您的充值金额准确无误后再进行充值，避免输错金额导致的失误，如因未仔细确认金额造成的充值问题，我们将一律不予处理此类退款申诉。
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    layui.use(['element','form'], function(){
+        var element = layui.element;
+        var form = layui.form;
+        var $ = layui.jquery;
+
+        // 监听表单提交
+        form.on('submit(Xsubmit)', function (data) {
+            $.post("",data.field, function(res){
+                console.log(data.field);
+
+                return false;
+                //var res = $.parseJSON(data);
+                if(res['result']=="error") {
+                    notice.destroy();
+                    for (var i=0;i<res['data'].length;i++)
+                    {
+                        notice.error({
+                            layout: 1,
+                            title: '',
+                            message: res['data'][i]
+                        });
+                    }
+                }else{
+                    layer.msg(res.resultMsg, {icon: 1, time: 1000},function () {
+                        window.location.href = "{$local.listUrl}";
+                    })
+
+                }
+            })
+            return false;
+        });
+        $(".payment_list li").click(function (obj) {
+            $(".payment_list li").removeClass("checked")
+            $(this).addClass("checked");
+            $("#pay_type").val($(this).attr("data-type"));
+        })
+
+    });
+</script>

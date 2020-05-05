@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>萤火小程序商城</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="icon" type="image/png" href="/xadmincn/Amazeui/common/i/favicon.ico"/>
+    <meta name="apple-mobile-web-app-title" content=""/>
+    <link rel="stylesheet" href="/xadmincn/Amazeui/common/css/amazeui.min.css"/>
+    <link rel="stylesheet" href="/xadmincn/Amazeui/admin/css/app.css?v=1.1.41"/>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_783249_m68ye1gfnza.css">
+
+    <script src="/xadmincn/Amazeui/common/js/jquery.min.js"></script>
+    <script src="/xadmincn/Amazeui/admin/js/admin.js?v=1.1.41"></script>
+    <script src="//at.alicdn.com/t/font_783249_e5yrsf08rap.js"></script>
+    <script>
+        BASE_URL = 'http://yinghuo.test/';
+        STORE_URL = 'index.php?s=/store';
+    </script>
+</head>
+
+<body data-type="">
+
+<div class="am-g tpl-g">
+<!-- 头部 -->
+<header class="tpl-header">
+    <!-- 右侧内容 -->
+    <div class="tpl-header-fluid">
+        <!-- 侧边切换 -->
+        <div class="am-fl tpl-header-button switch-button">
+            <i class="iconfont icon-menufold"></i>
+        </div>
+        <!-- 刷新页面 -->
+        <div class="am-fl tpl-header-button refresh-button">
+            <i class="iconfont icon-refresh"></i>
+        </div>
+        <!-- 其它功能-->
+        <div class="am-fr tpl-header-navbar">
+            <ul>
+                <!-- 欢迎语 -->
+                <li class="am-text-sm tpl-header-navbar-welcome">
+                    <a href="index.php?s=/store/store.user/renew">欢迎你，<span>admin</span>
+                    </a>
+                </li>
+                <!-- 退出 -->
+                <li class="am-text-sm">
+                    <a href="index.php?s=/store/passport/logout">
+                        <i class="iconfont icon-tuichu"></i> 退出
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<!-- 侧边导航栏 -->
+<div class="left-sidebar dis-flex">
+    <div class="sidebar-scroll">
+        <!-- 一级菜单 -->
+        <ul class="sidebar-nav">
+            <li class="sidebar-nav-heading">萤火小程序商城</li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/index/index"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-home"
+                       style=""></i>
+                    首页                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/store.user/index"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-guanliyuan"
+                       style=""></i>
+                    管理员                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/goods/index"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-goods"
+                       style=""></i>
+                    商品管理                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/order/all_list"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-order"
+                       style=""></i>
+                    订单管理                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/user/index"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-user"
+                       style=""></i>
+                    用户管理                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/shop/index"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-shop"
+                       style=""></i>
+                    门店管理                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/content.article/index"
+                   class="active">
+                    <i class="iconfont sidebar-nav-link-logo icon-wenzhang"
+                       style=""></i>
+                    内容管理                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/market.coupon/index"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-marketing"
+                       style=""></i>
+                    营销管理                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/statistics.data/index"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-qushitu"
+                       style=""></i>
+                    数据统计                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/wxapp/setting"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-wxapp"
+                       style="color:#36b313;"></i>
+                    小程序                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/apps.dealer.apply/index"
+                   class="">
+                    <svg class="icon sidebar-nav-link-logo" aria-hidden="true">
+                        <use xlink:href="#icon-application"></use>
+                    </svg>
+                    应用中心                        </a>
+            </li>
+            <li class="sidebar-nav-link">
+                <a href="index.php?s=/store/setting/store"
+                   class="">
+                    <i class="iconfont sidebar-nav-link-logo icon-setting"
+                       style=""></i>
+                    设置                        </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 子级菜单-->
+    <div class="sidebar-second-scroll">
+        <ul class="left-sidebar-second">
+            <li class="sidebar-second-title">内容管理</li>
+            <li class="sidebar-second-item">
+                <!-- 三级菜单-->
+                <div class="sidebar-third-item">
+                    <a href="javascript:void(0);"
+                       class="sidebar-nav-sub-title active">
+                        <i class="iconfont icon-caret"></i>
+                        文章管理                                    </a>
+                    <ul class="sidebar-third-nav-sub">
+                        <li>
+                            <a class="active"
+                               href="index.php?s=/store/content.article/index">
+                                文章列表</a>
+                        </li>
+                        <li>
+                            <a class=""
+                               href="index.php?s=/store/content.article.category/index">
+                                文章分类</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 三级菜单-->
+                <div class="sidebar-third-item">
+                    <a href="javascript:void(0);"
+                       class="sidebar-nav-sub-title ">
+                        <i class="iconfont icon-caret"></i>
+                        文件库管理                                    </a>
+                    <ul class="sidebar-third-nav-sub">
+                        <li>
+                            <a class=""
+                               href="index.php?s=/store/content.files.group/index">
+                                文件分组</a>
+                        </li>
+                        <li>
+                            <a class=""
+                               href="index.php?s=/store/content.files/index">
+                                文件列表</a>
+                        </li>
+                        <li>
+                            <a class=""
+                               href="index.php?s=/store/content.files/recycle">
+                                回收站</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- 内容区域 start -->
+<div class="tpl-content-wrapper ">
+    {__CONTENT__}
+</div>
+<!-- 内容区域 end -->
+
+</div>
+<script src="/xadmincn/Amazeui/plugins/layer/layer.js"></script>
+<script src="/xadmincn/Amazeui/common/js/jquery.form.min.js"></script>
+<script src="/xadmincn/Amazeui/common/js/amazeui.min.js"></script>
+<script src="/xadmincn/Amazeui/common/js/webuploader.html5only.js"></script>
+<script src="/xadmincn/Amazeui/common/js/art-template.js"></script>
+<script src="/xadmincn/Amazeui/common/js/file.library.js?v=1.1.41"></script>
+</body>
+
+</html>

@@ -1,0 +1,170 @@
+{include file="header"}
+<style>
+    .btnfix{
+        position: fixed;
+        bottom: 0;
+        z-index: 99999999;
+        left: 0;
+        right: 0;
+        background-color:
+                #fff;
+        box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.05);
+        padding: 9px;
+        padding-right: 9px;
+        text-align: right;
+        padding-right: 10px;
+    }
+    html{
+        background-color: white;
+    }
+</style>
+{if (isset($local.request.open_type) && $local.request.open_type=='pop')}
+<style>
+    .layui-form-label {
+        width: 85px;
+    }
+    .layui-input-block {
+        min-height: 36px;
+    }
+    .layui-form-select dl {
+        z-index: 899333;
+        min-width: 80%;
+        margin-left: 10px;
+    }
+    .ew-cascader-input-group > .ew-icon-arrow,.ew-cascader-input-group > .ew-icon-clear,.ew-cascader-input-group > .ew-icon-loading{
+        right: 50px;
+    }
+    .ew-cascader-input-group > .ew-icon-arrow {
+        font-size: 15px;
+    }
+    .layui-input-block .layui-form-select .layui-edge {
+        right: 50px;
+    }
+    .ew-cascader-dropdown {
+        left: 0px;
+    }
+    .layui-card-body {
+        padding: 0px;
+    }
+    .layui-form-mid {
+        margin-left: 115px;
+        margin-bottom: -15px;
+        margin-top: -20px;
+        font-size: 13px;
+    }
+    .layui-layedit-tool .layui-icon {
+        position: relative;
+        width: 10px;
+        height: 30px;
+        line-height: 30px;
+        margin: 3px 4px;
+        color:#777;
+        cursor: pointer;
+        border-radius: 2px;
+    }
+    .layui-layedit-tool .layedit-tool-mid, .layui-layedit-tool .layui-icon {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 14px;
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width: 85%;
+        padding-left: 10px;
+    }
+     .icon_select .icon_select_action {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 80px;
+        border-radius: 0 2px 2px 0;
+        padding: 0;
+        text-align: center;
+         margin-left: -2px;
+    }
+    .layui-btn.layui-btn-primary {
+        margin-left: -2px;
+        background-color:
+                #bec3c7;
+        color:
+                #fff;
+    }
+
+</style>
+<div class="layui-form">
+    <div  style="height:400px;position:relative;overflow: auto;">
+        <div class="layui-card-body table-tool-mini "  style="background-color: white;padding-top: 20px;">
+            {include file="form_header"}
+            {if $local['form']!=""}
+            {foreach $local['form'] as $keys=>$value}
+            {include file="form_input"}
+            {/foreach}
+            {/if}
+        </div>
+    </div>
+
+    <div class="btnfix" >
+        <button class="layui-btn  layui-btn-sm" lay-filter="Xsubmit" lay-submit=""> 提 交 </button>
+    </div>
+</div>
+{else}
+<style>
+    .layui-form-mid {
+        margin-left: 130px;
+        margin-bottom: -15px;
+        margin-top: -20px;
+        font-size: 13px;
+    }
+    .layui-input-block .layui-form-select .layui-edge {
+        right: 14%;
+    }
+    .layui-form-selected dl {
+        display: block;
+        min-width: 90%;
+    }
+
+    .btnfix {
+        position: fixed;
+        bottom: 0;
+        z-index: 99999999;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        box-shadow: 0 -1px 2px
+        rgba(0, 0, 0, 0.05);
+        padding: 9px;
+        padding-right: 9px;
+        padding-right: 9px;
+        text-align: center;
+        padding-right: 10px;
+    }
+</style>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body layui-form">
+            <div class="layui-tab layui-tab-brief" lay-filter="component-tabs-hash">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">{if isset($local.icon)} <i class="{$local.icon}"></i>{/if} {$local.title|default=''}</li>
+                </ul>
+                <div class="layui-tab-content layui-form" style="margin-top: 10px;min-width: 65%;width:65%">
+                    {include file="form_header"}
+                    {if $local['form']!=""}
+                    {foreach $local['form'] as $keys=>$value}
+                    {include file="form_input"}
+                    {/foreach}
+                    {/if}
+                    <div class="layui-form-item  " style="padding-left: 20px;">
+
+                        <div class="{if isset($local.submitFixed) && $local.submitFixed==true}btnfix{else}layui-input-block{/if}">
+                            <button class="layui-btn" lay-filter="Xsubmit" lay-submit=""> 提交 </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{/if}

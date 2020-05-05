@@ -1,0 +1,6 @@
+{include file="form_header"}
+{if $local['form']!=""}
+{foreach $local['form'] as $keys=>$value}
+{include file="form_input"}
+{/foreach}
+{/if}

@@ -1,0 +1,72 @@
+{include file="header"}
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-row ">
+
+        <div class="layui-col-sm12 layui-col-md6">
+
+            <div class="layui-card">
+                <div class="layui-card-header"><div style="float: left">{$local.title|default='请求参数'}</div><div style="float: right;; margin-right: 30px;font-size: 12px;color: #9c3328">【参数：{$local.title_url}】</div></div>
+                <div class="layui-card-body layui-form layui-row">
+                    <div class="layui-col-md12">
+                        {include file="form"}
+                    </div>
+                    <div class="layui-form-item text-center" >
+                        <button class="layui-btn" lay-filter="Xsubmit" lay-submit>提交请求</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-col-sm12 layui-col-md6">
+
+            <div class="layui-row layui-col-space15">
+
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header" style="background:black;color:white">请求参数</div>
+                        <div class="layui-card-body layui-form layui-row" id="api_request" style="background:black;color:white;word-break:break-all; ">
+                        请先提交参数
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-sm12 layui-col-md12">
+                    <div class="layui-card">
+                        <div class="layui-card-header" style="background:black;color:white">返回参数</div>
+                        <div class="layui-card-body " id="api_return" style="background:black;color:white;word-break:break-all;  ">
+                            请先提交参数
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-fluid">
+
+</div>
+<!-- js部分 -->
+<script>
+    layui.use(['form', 'notice'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var notice = layui.notice;
+
+        // 监听表单提交
+        form.on('submit(Xsubmit)', function (data) {
+            $.post("",data.field, function(data){
+                var json = $.parseJSON(data);
+                $("#api_request").html(json['api_request']);
+                $("#api_return").html(json['api_return']);
+
+            })
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

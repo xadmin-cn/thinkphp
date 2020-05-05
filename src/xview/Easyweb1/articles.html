@@ -1,0 +1,38 @@
+{include file="Easyweb/header"}
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-row ">
+        <div class="layui-col-sm12 layui-col-md9">
+            <form class="layui-form" method="post">
+                <div class="layui-card">
+                    <div class="layui-card-header"><div style="float: left;font-weight: bold;font-size: 21px;">{$local.articles.title}</div></div>
+                   
+                    <div class="layui-card-body layui-form layui-row">
+
+                        <div class="layui-form-item " >
+                            <div class="site-text">
+                                <p>{$local.articles.contents}</p>
+                            </div>
+                           
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- js部分 -->
+<script>
+
+    layui.use([ ], function () {
+        var $ = layui.jquery;
+       
+
+    });
+</script>
+</body>
+</html>

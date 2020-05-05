@@ -1,0 +1,88 @@
+
+
+<style>
+    /*消息*/
+    .admin_message{ padding: 15px;margin:  0 auto;-}
+    .admin_message .notification{ padding:12px 15px; margin-bottom:5px; font-size:14px; color:#333;line-height: 2em;border-radius: 4px; }
+    .admin_message .success{ border:1px solid #6c3; background:#ddFFdd;color: #000; }
+    .admin_message .error{ border:1px solid #c63; background: #FFECEC;color: #CA0000;}
+    .admin_message .redirect,.admin_message .count_down{ padding:10px 0; color:#333; }
+    .admin_message .count_down span{ color:red; margin:0 5px; }
+    .admin_message .count_down a{ color:#009688; }
+    .admin_message .redirect.btn_count_1 a:first-child{ border-radius: 2px;}
+</style>
+
+<body>
+
+<div class="admin_main">
+    <div class="admin_message">
+        <div class="notification error">
+            <div>{$resultMsg}</div>
+        </div>
+
+        <div class="redirect layui-btn-group btn_count_2">
+            <a class="redirect_selection  layui-btn layui-btn-normal " href="{if isset($data['url'])}{$data['url']}{else}/index/main.html{/if}">{if isset($data['title'])}{$data['title']}{else}返回首页{/if}</a>
+            <a class="redirect_selection  layui-btn layui-btn-normal layui-btn-danger" href="javascript:void(0)" onclick="window.history(-1)">返回上一页</a>
+        </div>
+        <div class="count_down">
+            系统将在<span id="count_down_count">3</span>秒后自动跳转到第一个链接 <a id="cancel_count_down" style="cursor:pointer;">取消自动跳转</a>
+        </div>
+
+        <script>
+            var left_seconds=parseInt('3');
+            function count_down(){
+                if(left_seconds<0){
+                    if (!$('#rs_close').length) {
+                        var href = "/index/index.html";
+                        if ($('a.redirect_selection').eq(0).attr('href')) {
+                            href = $('a.redirect_selection').eq(0).attr('href')
+                        }
+                        window.location.href = href;
+                    } else {
+                        $('#rs_close').trigger('click');
+                    }
+                    return;
+                }
+                $('#count_down_count').html(left_seconds--);
+                count_down.timeout=window.setTimeout(count_down, 1000);
+            }
+            $(document).ready(function(){ count_down(); });
+            $('#cancel_count_down').click(function(){
+                window.clearTimeout(count_down.timeout);
+                $(this).parent().remove();
+            })
+
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                if(self != top) {
+                    if (parent.$('.layui-layer-iframe').length >= 1) {
+                        $('.redirect.layui-btn-group').addClass('btn_count_1').html('<a class="javascript redirect_selection  layui-btn layui-btn layui-btn-danger" id="rs_close">关闭窗口</a>');
+                        $('#rs_close').click(function() {
+                            parent.layer.closeAll();
+                            parent.location.reload();
+                        })
+                    } else {
+                        $('#rs_close').css('display','inline-block').click(function(){
+                            //top.$('.layui-tab').find('.layui-tab-title li.layui-this .layui-tab-close').trigger('click');
+                            var id = top.getIframeId(window);
+                            top.$('.layui-tab').find('.layui-tab-title li .layui-tab-close[data-id="'+id+'"]').trigger('click')
+                        });
+                    }
+                } else {
+                    $('#rs_close').click(function() {
+                        var href = "/index/index.html";
+                        if ($('a.redirect_selection').eq(0).attr('href')) {
+                            href = $('a.redirect_selection').eq(0).attr('href')
+                        }
+                        window.location.href = href;
+                    })
+                }
+            })
+        </script>
+    </div>
+</div>
+
+
+</body>
+</html>

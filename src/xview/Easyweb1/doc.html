@@ -1,0 +1,334 @@
+{include file="Easyweb/header"}
+<style>
+    .layui-elem-quote {
+        margin: 10px 0;
+        padding: 10px;
+        line-height: 20px;
+        border-left: 3px solid #22a4e7;
+        border-radius: 0 2px 2px 0;
+        background-color: #f9f9f9;
+    }
+
+    .detailbar-list{ border-left: 1px solid #dedede;}
+    .detailbar-list ul{ padding-left: 8px;}
+    .detailbar-list ul li{ list-style: none; padding: 8px 0 8px 5px; position: relative;}
+    .detailbar-list ul li::before{
+        content: "";
+        width:7px;
+        height: 7px;
+        border-radius: 50%;
+        display: block;
+        background: #dedede;
+        position: absolute;
+        left: -12px;
+        top: 16px;
+    }
+    .detailbar-list ul li a{ color: #666; font-size: 14px; text-decoration: none;}
+    .detailbar-list ul li.active::before{
+        content: "";
+        width:10px;
+        height: 10px;
+        border-radius: 50%;
+        display: block;
+        position: absolute;
+        left: -14px;
+        top: 14px;
+        background: #3f81e5;
+    }
+    .detailbar-list ul li.active a{ color: #3f81e5;}
+    .detailbar-list ul li:hover::before{
+        content: "";
+        width:10px;
+        height: 10px;
+        border-radius: 50%;
+        display: block;
+        position: absolute;
+        left: -14px;
+        top: 14px;
+        background: #3f81e5;
+    }
+    .detailbar-list ul li:hover a{ color: #3f81e5;}
+
+</style>
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-row ">
+        <div class="layui-col-sm12 layui-col-md9">
+            <form class="layui-form" method="post">
+                <div class="layui-card">
+                    <div class="layui-card-header"><div style="float: left;font-weight: bold;font-size: 21px;">{$local.doc.tool} {$local.doc.title}</div></div>
+                    <div class="detailbar-list" id="detailbarNav" style="position: fixed; left: 80%; top: 40px;">
+                        <ul>
+                            <li class="active"><a href="#request" class="detailbar">请求参数</a></li>
+                            <li class=""><a href="#request_demo" class="detailbar">请求参数示例</a></li>
+                            <li class=""><a href="#request_return" class="detailbar">请求成功返回参数</a></li>
+                            <li class=""><a href="#request_return_demo" class="detailbar">请求成功返回示例</a></li>
+                            <li class=""><a href="#request_error" class="detailbar">请求失败返回参数</a></li>
+                            <li class=""><a href="#request_error_demo" class="detailbar">请求失败返回示例</a></li>
+                            <li class=""><a href="#error_code" class="detailbar">接口错误码</a></li>
+                            <li class=""><a href="#error_code_pub" class="detailbar">公共错误码</a></li>
+                            <li class=""><a href="#tool_bar" class="detailbar">调试工具</a></li>
+                            <li class=""><a href="#FAQ" class="detailbar">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="layui-card-body layui-form layui-row">
+
+                        <div class="layui-form-item " >
+                            <div class="site-text">
+                                <p>{$local.doc.description}</p>
+                            </div>
+                            <div class="layui-elem-quote" id="request">
+                                <p>请求参数</p>
+                            </div>
+                            <table class="layui-table" lay-size="sm">
+
+                                <thead>
+                                <tr>
+                                    <th  width="80">参数</th>
+                                    <th width="80">参数名称</th>
+                                    <th  width="80">类型</th>
+                                    <th width="40">必填</th>
+                                    <th>参数说明</th>
+                                    <th width="80">示例</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {foreach name="local.doc.request" key="key" item="item"}
+                                <tr>
+                                    <td>{$item.nid}</td>
+                                    <td>{$item.title}</td>
+                                    <td>{$item.type}</td>
+                                    <td >{if $item.required=="是"}<span style="color:#22a4e7">是</span> {else}<span style="color:#f7805f">否</span>{/if}</td>
+
+                                    <td>{$item.remark}</td>
+                                    <td>{$item.demo}</td>
+                                </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
+
+                            <div class="layui-elem-quote"  id="request_demo">
+                                <p>请求参数示例</p>
+                            </div>
+                            <pre class="layui-code " lay-title="" lay-height="" lay-skin="" lay-encode="">
+{$local.doc.request_code}
+                            </pre>
+                            <div class="layui-elem-quote"  id="request_return">
+                                <p>请求成功返回参数</p>
+                            </div>
+                            <table class="layui-table" lay-size="sm">
+
+                                <thead>
+                                <tr>
+                                    <th  width="80">参数</th>
+                                    <th width="80">参数名称</th>
+                                    <th  width="80">类型</th>
+                                    <th width="40">必填</th>
+                                    <th>参数说明</th>
+                                    <th width="80">示例</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {foreach name="local.doc.result" key="key" item="item"}
+                                <tr>
+                                    <td>{$item.nid}</td>
+                                    <td>{$item.title}</td>
+                                    <td>{$item.type}</td>
+                                    <td >{if $item.required=="是"}<span style="color:#22a4e7">是</span> {else}<span style="color:#f7805f">否</span>{/if}</td>
+
+                                    <td>{$item.remark}</td>
+                                    <td>{$item.demo}</td>
+                                </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
+                            <div class="layui-elem-quote"  id="request_return_demo">
+                                <p>请求成功返回示例</p>
+                            </div>
+                            <pre class="layui-code " lay-title="" lay-height="" lay-skin="" lay-encode="">
+{$local.doc.return_code}
+                            </pre>
+                            <div class="layui-elem-quote"  id="request_error">
+                                <p>请求失败返回参数</p>
+                            </div>
+                            <table class="layui-table" lay-size="sm">
+                                <thead>
+                                <tr>
+                                    <th  width="80">参数</th>
+                                    <th width="80">参数名称</th>
+                                    <th  width="80">类型</th>
+                                    <th width="40">必填</th>
+                                    <th>参数说明</th>
+                                    <th width="80">示例</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {foreach name="local.doc.error" key="key" item="item"}
+                                <tr>
+                                    <td>{$item.nid}</td>
+                                    <td>{$item.title}</td>
+                                    <td>{$item.type}</td>
+                                    <td >{if $item.required=="是"}<span style="color:#22a4e7">是</span> {else}<span style="color:#f7805f">否</span>{/if}</td>
+
+                                    <td>{$item.remark}</td>
+                                    <td>{$item.demo}</td>
+                                </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
+                            <div class="layui-elem-quote"  id="request_error_demo">
+                                <p>请求失败返回示例</p>
+                            </div>
+                            <pre class="layui-code " lay-title="" lay-height="" lay-skin="" lay-encode="">
+{$local.doc.error_code}
+                            </pre>
+                            <div class="layui-elem-quote" id="error_code">
+                                <p>接口错误码</p>
+                            </div>
+                            <table class="layui-table"  lay-size="sm">
+                                <colgroup>
+                                    <col width="150">
+                                    <col width="250">
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>错误代码</th>
+                                    <th>错误信息</th>
+                                    <th>解决办法</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {foreach name="local.doc.error_codes" key="key" item="item"}
+                                <tr>
+                                    <td>{$item.code}</td>
+                                    <td>{$item.msg}</td>
+                                    <td>{$item.remark}</td>
+                                </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
+                            <div class="layui-elem-quote" id="error_code_pub">
+                                <p>公共错误码</p>
+                            </div>
+                            <table class="layui-table"  lay-size="sm">
+                                <colgroup>
+                                    <col width="150">
+                                    <col width="250">
+                                    <col>
+                                </colgroup>
+                                <thead>
+                                <tr>
+                                    <th>错误代码</th>
+                                    <th>错误信息</th>
+                                    <th>解决办法</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {foreach name="local.doc.error_pub" key="key" item="item"}
+                                <tr>
+                                    <td>{$item.code}</td>
+                                    <td>{$item.msg}</td>
+                                    <td>{$item.remark}</td>
+                                </tr>
+                                {/foreach}
+                                </tbody>
+                            </table>
+                            <div class="layui-elem-quote" id="tool_bar">
+                                <p>调试工具</p>
+                            </div>
+                            <button type="button" class="layui-btn layui-btn-radius layui-btn-normal" id="tools" >TOOl在线测试 </button>
+                            <button type="button" class="layui-btn layui-btn-radius layui-btn-warm">SDK调试示例</button>
+                            <button type="button" class="layui-btn layui-btn-radius layui-btn-danger">SDK下载</button>
+                            <div class="layui-elem-quote" id="FAQ">
+                                <p>FAQ</p>
+                            </div>
+                            <div class="layui-collapse " lay-accordion>
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">杜甫</h2>
+                                    <div class="layui-colla-content layui-show">内容区域</div>
+                                </div>
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">李清照</h2>
+                                    <div class="layui-colla-content ">内容区域</div>
+                                </div>
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">鲁迅</h2>
+                                    <div class="layui-colla-content ">内容区域</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- js部分 -->
+<script>
+
+    layui.use([ 'element', 'index','code'], function () {
+        var $ = layui.jquery;
+        var element = layui.element;
+        var index = layui.index;
+
+        layui.code({
+            about: false,
+            "title":"json代码"
+        });
+        //
+        $("#tools").click(function (event){
+            index.openTab({
+                title: '{$local.doc.title}',
+                url: '{$local.doc.tool}',
+                end: function() {
+                    // insTb.reload();
+                }
+            });
+        })
+        //导航菜单控制
+        $(".detailbar").click(function (obj){
+            $(this).parent('li').addClass("active");
+            $(this).parent('li').siblings('li').removeClass("active");
+        })
+
+
+        //滚动监听
+        $(window).scroll(function(){
+            var top = $(document).scrollTop();          //定义变量，获取滚动条的高度
+            var menu = $("#detailbarNav");                      //定义变量，抓取#menu
+            var items = $(".layui-form-item").find(".layui-elem-quote");    //定义变量，查找.item
+
+            var curId = "";                             //定义变量，当前所在的楼层item #id
+
+            items.each(function(){
+                var m = $(this);                        //定义变量，获取当前类
+                var itemsTop = m.offset().top;        //定义变量，获取当前类的top偏移量
+                if(top > itemsTop-100){
+                    curId = "#" + m.attr("id");
+                }else{
+                    return false;
+                }
+            });
+
+            //给相应的楼层设置cur,取消其他楼层的cur
+            var curLink = menu.find(".active>a");
+            if( curId && curLink.attr("href") != curId ){
+                curLink.closest('li').removeClass("active");
+                menu.find( '[href="' + curId + '"]' ).parent('li').addClass("active");
+            }
+            // console.log(top);
+            var docTop = $(".layui-form-item").offset().top
+
+        });
+
+
+
+
+    });
+</script>
+</body>
+</html>

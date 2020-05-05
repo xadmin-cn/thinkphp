@@ -1,0 +1,165 @@
+{include file="header"}
+<style>
+    .layui-form-label {
+        float:left;
+        display:block;
+        padding:9px 15px;
+        width:120px;
+        font-weight:400;
+        line-height:20px;
+        text-align:right
+    }
+    .layui-input, .layui-textarea {
+        display: block;
+        width:80%;
+        padding-left: 10px;
+    }
+    .layui-radio {
+        display: block;
+        width:100%;
+        padding-left: 10px;
+    }
+    .layui-form-select .layui-edge {
+        right: 25%;
+    }
+    .layui-item-info {
+        float: left;
+        height: 20px;
+        line-height: 20px;
+        cursor: pointer;
+        padding-top: 9px;
+        margin-right: 10px;
+    }
+    .layui-col-space151 {
+        padding: 8px 8px 0 8px  ;
+    }
+    .layui-card-body {
+        position: relative;
+        padding: 0px 8px;
+        line-height: 24px;
+        padding-top: -1px;
+        margin-top: -1px;
+        padding-bottom: 8px;
+    }
+    .layui-img-border{
+        border: 1px solid #c9c9c9;
+        padding: 2px;
+    }
+</style>
+{if (isset($local.xadmin.ispop) && $local.xadmin.ispop==false) ||  (isset($local.ispop) && $local.ispop==false)}
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+
+        <div class="layui-tab layui-tab-brief layui-col-space151" lay-filter="tableXTab">
+            <ul class="layui-tab-title">
+                <li class="layui-this"> {$local.title|default=''}</li>
+                <div class="layui-btn-group layui-left30">
+                    <a class="layui-btn  layui-btn-sm    " href="{$local.listUrl}"><i class="fa fa-reply"></i> 返回列表</a>
+                </div>
+            </ul>
+        </div>
+
+        <div class="layui-card-body">
+            <table class="layui-table layui-text">
+                <colgroup>
+                    <col width="100">
+                    <col>
+                </colgroup>
+                <tbody>
+                {if $local['form']!=""}
+                {foreach $local['form'] as $keys=>$value}
+                <tr>
+                    <td style="width: 100px;text-align: right"  >{$value.name}</td>
+                    <td>
+                    {if $value.type=='editor'}
+                        <style>
+                            .layui-table img {
+                                max-width: 100%;
+                            }
+                        </style>
+                        <Div>
+                            {$value.value|raw|default=''}
+                        </Div>
+                        {elseif $value.type=='image'}
+                            {if isset($value.value) && $value.value!=''}
+                            <a href="{$value.value}" target="_blank"><img src="{$value.value}" height="100"class="layui-img-border"></a>
+                            {/if}
+                                {elseif $value.type=='images'}
+                                {if isset($value.value) && $value.value!=''}
+                                <?php foreach (json_decode($value['value']) as $url){?>
+                                <a href="<?php echo $url;?>" target="_blank"><img src="<?php echo $url;?>" height="100"class="layui-img-border"></a>
+                                <?php }?>
+                                {/if}
+
+                        {elseif ($value.type=='user' ||  $value.type=='assoc')}
+                        {$value.assocValue|default=''}
+                        {elseif $value.type=='switch'}
+                        {$value.switchVal|default=''}
+                        {else}
+                            {$value.value|default=''}
+                        {/if}
+                     </td>
+                </tr>
+                {/foreach}
+                {/if}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{else}
+<style>
+    html {
+        background-color:
+                #FFF;
+    }
+</style>
+<table class="layui-table " style="margin-top: -5px">
+    <colgroup>
+        <col width="100">
+        <col>
+    </colgroup>
+    <tbody>
+    {if $local['form']!=""}
+    {foreach $local['form'] as $keys=>$value}
+    <tr>
+        <td style="width: 100px;text-align: right"  >{$value.name}</td>
+        <td>
+            {if $value.type=='editor'}
+            <style>
+                .layui-table img {
+                    max-width: 100%;
+                }
+            </style>
+            <Div>
+                {$value.value|raw|default=''}
+            </Div>
+            {elseif $value.type=='image'}
+                {if isset($value.value) && $value.value!=''}
+                <a href="{$value.value}" target="_blank"><img src="{$value.value}" height="100"class="layui-img-border"></a>
+                {/if}
+            {elseif $value.type=='images'}
+            {if isset($value.value) && $value.value!=''}
+            <?php foreach (json_decode($value['value']) as $url){?>
+            <a href="<?php echo $url;?>" target="_blank"><img src="<?php echo $url;?>" height="100"class="layui-img-border"></a>
+            <?php }?>
+            {/if}
+            {elseif ($value.type=='user' ||  $value.type=='assoc')}
+            {$value.assocValue|default=''}
+            {elseif $value.type=='select' || $value.type=='option'}
+                    {$value['options'][$value.value]|default=''}
+            {elseif $value.type=='switch'}
+            {$value.switchValue|default=''}
+            {else}
+            {$value.value|default=''}
+            {/if}
+        </td>
+    </tr>
+    {/foreach}
+    {/if}
+    </tbody>
+</table>
+{/if}
+</body>
+</html>

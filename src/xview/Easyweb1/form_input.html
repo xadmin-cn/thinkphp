@@ -1,0 +1,343 @@
+<!--隐藏-->
+{if $value.type=="hide" || $value.type=="hidden"  }
+<div class="layui-form-item" style="display: none">
+    <input type="text" placeholder="{if isset($value.placeholder)}{$value.placeholder}{/if}" value="{$value.value|default=''}" name="{$keys}" class="layui-input" >
+</div>
+
+<!--下划线-->
+{elseif $value.type=="legend"}
+<fieldset class="layui-elem-field layui-field-title">
+    <legend style="font-size: 12px">{if isset($value.name)}{$value.name}{/if}</legend>
+</fieldset>
+
+<!--权限-->
+{elseif $value.type=="checkbox" && isset($value.foreign.type) && $value.foreign.type=="assoc"}
+<div class="layui-form-item">
+    <label class="layui-form-label"></label>
+    <div class="layui-input-block">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;width: 90%">
+            <legend style="font-size: 14px">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</legend>
+        </fieldset>
+    </div>
+</div>
+{foreach $value.options as $ka=>$va}
+<style>
+    .layui-table td, .layui-table th {
+        border-color: #fff;
+        border-bottom: 1px solid #ebe6e67a;
+    }
+</style>
+<div class="layui-form-item">
+    <div class="layui-input-block">
+        <label class="layui-form-label" style="text-align: left">{$va.data.title}</label>
+
+        <div align="right" style="margin-right: 75px;margin-left: 10px;padding-bottom:10px;border-bottom: 1px solid #d3d3d3;">
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn layui-btn-sm checkbox_all" data="{$keys}_{$va.data.id}"  >全选</button>
+                <button type="button" class="layui-btn layui-btn-sm checkbox_not" data="{$keys}_{$va.data.id}" >反选</button>
+            </div>
+        </div>
+        <table class="layui-table {$keys}_{$va.data.id}" style="margin-left: 10px;width: 90%">
+            <colgroup>
+                <col width="150">
+                <col width="">
+                <col width="200">
+                <col width="100">
+                <col>
+            </colgroup>
+
+            <tbody>
+            {foreach $va.options as $k=>$v}
+            <tr>
+                <td>{$v.title}</td>
+                <td>{$v.module}</td>
+                <td>{$v.action}</td>
+                <td align="right">  <input type="checkbox" class="checkbox_this" name="{$keys}[{$v.id}]"  {if in_array($v.id,$value.checkboxValue)}checked{/if} value="1" title="{$v.title}"  lay-skin="switch" lay-text="开启|关闭"></td>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+{/foreach}
+
+
+
+
+{elseif $value.type=="editor"}
+
+{if !isset($value.editorType) || $value.editorType==""}
+<div class="layui-form-item">
+    <label class="layui-form-label">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</label>
+    <div class="layui-input-block">
+        <div style="float: left;width: 90%">
+            <textarea id="editor_layui_{$keys}" name="{$keys}" class="layui-input" lay-verify="editor_verify"{if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if}>{$value.value|default=''}</textarea>
+        </div>
+    </div>
+</div>
+<script>
+    layuieditor('{$keys}','{$local.thisUrl}/upload/image','{$value.fileSize}','{$value.fileExt}');
+</script>
+
+{elseif $value.editorType=="ueditor"}
+<div class="layui-form-item">
+    <label class="layui-form-label">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</label>
+    <div class="layui-input-block">
+        <div style="float: left;width: 90%">
+            <textarea class="span12 ckeditor " id="editor_ueditor_{$keys}" name="content" title="" {if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if}>
+            {$value.value}
+            </textarea>
+        </div>
+    </div>
+</div>
+<script>
+    ueditors('{$keys}','{$local.thisUrl}/upload/image&upload_type=ueditor')
+</script>
+{elseif $value.editorType=="ckeditor"}
+<div class="layui-form-item">
+    <label class="layui-form-label">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</label>
+    <div class="layui-input-block">
+        <div style="float: left;width: 90%">
+            <textarea id="editor_ckeditor_{$keys}" name="{$keys}" class="layui-input" lay-verify="editor_verify" {if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if}>{$value.value|default=''}</textarea>
+        </div>
+    </div>
+</div>
+<script>
+    ckeditor('{$keys}')
+</script>
+
+{elseif $value.editorType=="wangeditor"}
+<div class="layui-form-item">
+    <label class="layui-form-label">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</label>
+    <div class="layui-input-block">
+        <div style="float: left;width: 90%">
+            <div id="editor_wangeditor_{$keys}">
+            </div>
+        </div>
+    </div>
+</div>
+<Style>
+    .w-e-toolbar .w-e-menu {
+        position: relative;
+        text-align: center;
+        padding: 5px 5px;
+        cursor: pointer;
+    }
+</Style>
+<script>
+    wangeditor('{$keys}')
+</script>
+
+{elseif $value.editorType=="kindeditor"}
+<div class="layui-form-item">
+    <label class="layui-form-label">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</label>
+    <div class="layui-input-block">
+        <div style="float: left;width: 80%">
+            <textarea id="editor_kindeditor_{$keys}" name="{$keys}" class="layui-input" lay-verify="editor_verify" {if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if}>{$value.value|default=''}</textarea>
+        </div>
+    </div>
+</div>
+<script>
+    kindeditor('{$keys}')
+</script>
+{/if}
+{if isset($value.remark)}
+<div class="layui-form-item">
+    <div class="layui-form-mid layui-word-aux" >{$value.remark}</div>
+</div>
+{/if}
+
+
+
+
+
+{else}
+<div class="layui-form-item">
+    <label class="layui-form-label">{$value.name}</label>
+    <div class="layui-input-block" >
+        <!--文本框-->
+        {if $value.type=="text"}
+        <input type="text" class="layui-input left"  placeholder="{$value.placeholder}" value="{$value.value|default=''}" name="{$keys}" style="{if isset($value.width)};width:{$value.width}px{/if}" {if isset($value.rule.require) }lay-vertype="tips" lay-verify="required" lay-reqText="{$value.rule.require}"{/if}>
+
+        <!--只读-->
+        {elseif $value.type=="readonly"}
+        <input type="text" placeholder="{if isset($value.placeholder)}{$value.placeholder}{/if}" value="{$value.value|default=''}"  class="layui-input left" style="{if isset($value.width)};width:{$value.width}px{/if}" readonly>
+
+
+        <!--密码-->
+        {elseif $value.type=="password"}
+        <input type="password" class="layui-input left"  value="{$value.value|default=''}" name="{$keys}"  style="{if isset($value.width)};width:{$value.width}px{/if}"   {if isset($value.rule.require) }lay-vertype="tips"  lay-verify="required" lay-reqText="{$value.rule.require}"{/if}>
+
+         <!--开关-->
+        {elseif $value.type=="switch"}
+        <div class="left">
+        <input type="checkbox" class="layui-input left"   autocomplete="off"  {if $value.value==$value.switchValue}checked=""{/if}  lay-filter="component-form-switchTest"  name="{$keys}" value="{$value.switchValue}" lay-skin="switch" lay-text="{$value.switchKey}">
+        </div>
+
+
+        <!--多文本框-->
+        {elseif $value.type=="textarea"}
+        <textarea name="{$keys}" class="layui-textarea left"   placeholder="{$value.placeholder}"  lay-vertype="tips" {if isset($value.rule.require) }lay-vertype="tips" lay-verify="required" lay-reqText="{$value.rule.require}"{/if} style="{if isset($value.width)};width:{$value.width}px{/if}{if isset($value.height)};height:{$value.height}px{/if}" >{$value.value|default=''}</textarea>
+
+
+        <!--单选框-->
+        {elseif $value.type=="radio"}
+        <div class="left">
+        {foreach $value.options as $k=>$v}
+        <input type="radio" name="{$keys}" value="{$k}" autocomplete="off" title="{$v}"  {if   $k==$value.value}checked=""{/if}>
+        {/foreach}
+        </div>
+
+        <!--复选框-->
+        {elseif $value.type=="checkbox"}
+        <div class="left">
+        {foreach $value.options as $k=>$v}
+        <input type="checkbox" name="{$keys}[{$k}]"  autocomplete="off"  value="1" title="{$v}" {if in_array($k,$value.checkboxValue)}checked{/if} lay-skin="primary">
+            {/foreach}</div>
+
+        <!--下拉框-->
+        {elseif $value.type=="select"}
+        <div class="left"  style="{if isset($value.width)};width:{$value.width}px{/if}" >
+        <select class="left" name="{$keys}" lay-vertype="tips"   >
+        <option value="">请选择</option>
+        {foreach $value.options as $k=>$v}
+        <option value="{$k}" {if $k==$value.value  }selected{/if}>{$v}</option>
+        {/foreach}
+        </select>
+        </div>
+
+        <!--单图片-->
+        {elseif $value.type=="image"}
+        <input type="text" placeholder="{if isset($value.placeholder)}{$value.placeholder}{/if}" {if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if} value="{$value.value|default=''}" id="upload_img_{$keys}" name="{$keys}" class="layui-input" style="float: left;padding-right: 10px;{if isset($value.width)}width:{$value.width}px{else}width:48%;{/if}">
+        <div class="layui-btn-group" style="umargin-left: -5px;float: left">
+            <button type="button" class="layui-btn xform-image upload_image_{$keys}"   style="padding: 0 10px;" ><i class="layui-icon left">&#xe67c;</i></button>
+            <button type="button" class="layui-btn  upload_imageupload_delete_{$keys}"  style="padding: 0 10px;"><i class="layui-icon layui-icon-delete"></i></button>
+            <button type="button" class="layui-btn  upload_view_{$keys}" style="padding: 0 10px;"><i class="layui-icon layui-icon-picture"></i></button>
+        </div>
+        <script>
+            uploadImage('{$keys}','{$local.thisUrl}/extend_form/upload/type/image{if isset($local.request.id) && $local.request.id!=""}/id/{$local.request.id}{/if}','{if isset($value.fileSize)}{$value.fileSize}{/if}','{if isset($value.fileExt)}{$value.fileExt}{/if}');
+        </script>
+
+        <!--多图片-->
+        {elseif $value.type=="images"}
+        <div class="layui-btn-group left" >
+            <button type="button" class="layui-btn layui-btn-sm upload_images_{$keys}"  style="margin-bottom: 5px;float: left;font-size: 13px" ><i class="layui-icon left">&#xe67c;</i> 上传图片</button>
+        </div>
+        <div class="main_upload_pic " style="display: none;width: 90%;margin-left: 5px;" id="upload_img_lists{$keys}" ></div>
+        <script>
+            uploadImages('{$keys}','{$local.thisUrl}/extend_form/upload/type/image{if isset($local.request.id) && $local.request.id!=""}/id/{$local.request.id}{/if}','{if isset($value.fileSize)}{$value.fileSize}{/if}','{if isset($value.fileNum)}{$value.fileNum}{/if}','{if isset($value.fileExt)}{$value.fileExt}{/if}');
+        </script>
+
+
+        <!--time时间-->
+        {elseif $value.type=="time"}
+        <input type="text" name="date"  placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" lay-key="1">
+
+        <!--用户-->
+        {elseif $value.type=="user"}
+        <input type="hidden"  name="{$keys}" value="{$value.value}">
+        <input type="text" readonly value="{if isset($value.assocValue)}{$value.assocValue}{/if}" class="layui-input " style="float: left;width: 200px;" >
+
+        <!--x选择-->
+        {elseif $value.type=="cascader"}
+        <input id="cascader_{$keys}" name="{$keys}" value="" placeholder="请选择" class="layui-hide"/>
+        <script>
+            cascader('{$keys}','{$local.thisUrl}/extend_form/cascader/formkey/{$keys}','{$value.cascader_id|default=''}');
+        </script>
+
+        <!--级联-->
+        {elseif $value.type=="assoc"}
+        <input type="hidden"  name="{$keys}" id='assoc_key_{$keys}' value="{$value.value}">
+        <input type="text" readonly value="{if isset($value.assocValue)}{$value.assocValue}{/if}" class="layui-input " id='assoc_{$keys}' style="float: left;width: 130px;" >
+        <div class="layui-btn-group">
+            <a  class="layui-btn "  style="margin-bottom: 5px;float: left;padding: 0 8px;" onclick="assoc('{$local.thisUrl}/input_type/assoc/assocId/{$keys}?foreign={$value.foreign}')" ><i class="layui-icon layui-icon-search left"></i> 选择</a>
+            <a  class="layui-btn " style="padding: 0 8px;"  onclick="assoc_delete('{$keys}')" >删除</a>
+        </div>
+
+        <!--直接显示-->
+        {elseif $value.type=="label"}
+        <input type="text" readonly="" placeholder="{if isset($value.placeholder)}{$value.placeholder}{/if}" value="{$value.value|default=''}" name="{$keys}" class="layui-input" style="border:none;border-bottom:1px solid #e6e6e6;; cursor:default;float: left" {if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if}>
+
+
+        <!--级联-->
+        {elseif $value.type=="icon"}
+        <input type="text" name='{$keys}' value="{if isset($value.value)}{$value.value}{/if}" class="layui-input " id='icon_{$keys}' style="float: left;width: 200px;" >
+        <div class="layui-btn-group">
+            <a href="javascript:void(0);" onclick="icon('{$keys}','{$local.thisUrl}/extend_form/icon/iconkey/{$keys}/')"  class="icon_select_action layui-btn layui-btn-primary">选择</a>
+        </div>
+
+        <!--级联-->
+        {elseif $value.type=="valicode"}
+        <div class="layui-col-xs7" style="float: left">
+            <input type="text" placeholder="{if isset($value.placeholder)}{$value.placeholder}{/if}" placeholder="验证码" class="layui-input" autocomplete="off" {if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if} >
+        </div>
+        <div class="layui-col-xs3 " style=" float: left">
+            <button class="layui-btn layui-btn-normal">获取验证码</button>
+        </div>
+
+
+        {/if}
+        {if $value.info!=''} <div style="float: left"><i lay-tips="{$value.info}" lay-direction="1" style="color: #FF5722;font-size: 13px; margin: 15px 0 0 10px" lay-bg="#FF5722" class="fa fa-bell fa-lg"></i></div>{/if}
+
+    </div>
+</div>
+{if isset($value.remark)}
+<div class="layui-form-item">
+    <div class="layui-form-mid layui-word-aux" >{$value.remark}</div>
+</div>
+{/if}
+{/if}
+
+
+
+
+{if $value.type=="threedomain"}
+<div class="layui-form-item">
+    <label class="layui-form-label">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</label>
+    <div class="layui-input-block">
+        <input type="text" placeholder="{if isset($value.placeholder)}{$value.placeholder}{/if}" value="{$value.value|default=''}" name="{$keys}" class="layui-input" style="float: left;width:100px" {if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if}><span style="font-size: 20px;line-height: 40px;color:#7d7d7d;margin-left: 5px">{$value.domain}</span>
+        {if isset($value.info)} <div style="float: left"><i lay-tips="{$value.info}" lay-direction="1" style="color: #FF5722;font-size: 13px; margin: 15px 0 0 10px" lay-bg="#FF5722" class="fa fa-bell fa-lg"></i></div>{/if}
+    </div>
+</div>
+{if isset($value.remark)}
+<div class="layui-form-item">
+    <div class="layui-form-mid layui-word-aux" >{$value.remark}</div>
+</div>
+{/if}
+{/if}
+
+{if $value.type=="url"}
+<div class="layui-form-item">
+    <label class="layui-form-label">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</label>
+    <div class="layui-form-block" style="width:80%">
+        <div class="layui-input" style="margin-left: 130px;line-height: 23px;padding: 7px ">
+            <a href="{$value.value}" target="_blank" >{$value.value}</a>
+        </div>
+    </div>
+</div>
+{if isset($value.remark)}
+<div class="layui-form-item">
+    <div class="layui-form-mid layui-word-aux" >{$value.remark}</div>
+</div>
+{/if}
+{/if}
+
+{if $value.type=="texturl"}
+<div class="layui-form-item ">
+    <label class="layui-form-label">{if isset($value.require) && $value.require==1}{/if}{if isset($value.name)}{$value.name}{/if}</label>
+    <div class="layui-input-block">
+        <input type="text" placeholder="{if isset($value.placeholder)}{$value.placeholder}{/if}" {if isset($value.require) && $value.require==1}lay-vertype="tips" lay-verify="required" lay-reqText="{$value.requireText}"{/if} value="{$value.value|default=''}" id="upload_img_{$keys}" class="layui-input" style="float: left;width:48%;padding-right: 10px" >
+        <div class="layui-btn-group" style="margin-left: -5px;float: left">
+            <button type="button" class="layui-btn upload_image_{$keys}"  >{$value.texturlName}</button>
+        </div>
+    </div>
+</div>
+{if isset($value.remark)}
+<div class="layui-form-item">
+    <div class="layui-form-mid layui-word-aux" >{$value.remark}</div>
+</div>
+{/if}
+{/if}
+
+
+

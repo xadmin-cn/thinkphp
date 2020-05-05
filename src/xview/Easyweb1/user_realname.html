@@ -1,0 +1,79 @@
+﻿{extend name="header_block" /}
+{block name="content"}
+
+<style>
+    .realname-img-wrap {
+        padding-top: 20px;
+    }
+    .realname-img-wrap .item {
+        margin-bottom: 20px;
+    }
+    .realname-img-wrap .item {
+        border: 1px dashed
+        #e1e1e1;
+        width: 265px;
+        text-align: center;
+        float: left;
+        margin-right: 20px;
+        margin-bottom: 6px;
+
+    }
+    .realname-img-wrap .item img {
+        width: 100%;
+        height: auto;
+        vertical-align: middle;
+    }
+    .realname-img-wrap .item a {
+        padding: 30px 20px;
+        height: 280px;
+        display: block;
+        position: relative;
+    }
+    .realname-img-wrap .item .img-wrap {
+        height: 135px;
+        line-height: 135px;
+        overflow: hidden;
+    }
+
+</style>
+
+<div id="field-person" class="realname-img-wrap clear" style="display: block;">
+    <p class="red">1.个人认证无法开增值税专用发票，如有需要请办理企业认证</p>
+    <p class="tip-til">2.请严格<span class="red">按照以下规范</span>拍照以免被打回，资料准备齐全后提交办理（JPG图片格式，每张照片限<span class="red">55K-5M</span>以内）</p>
+    <div  class="clear" style="height: 400px;text-align: left;margin-top: 20px;" >
+        <div class="item">
+            <a href="javascript:void(0);">
+                <div class="img-wrap">
+                    <img src="https://cdn.orayimg.com/console/img/card.png">
+                </div>
+                <p class="til">本人身份证（正面）原件拍照</p>
+                <p class="text">文字需清晰可见</p>
+                <p class="text">可加水印：仅用于实名认证<br><span class="red">若需生成注册人模板，请勿添加任何水印</span></p>
+            </a>
+        </div>
+        <div class="item">
+            <a href="javascript:void(0);">
+                <div class="img-wrap">
+                    <img src="https://cdn.orayimg.com/console/img/card_reverse.jpg" >
+                </div>
+                <p class="til">本人身份证（反面）原件拍照</p>
+                <p class="text">文字需清晰可见</p>
+                <p>&nbsp;</p><p>&nbsp;</p>
+            </a>
+        </div>
+        <div class="item">
+            <a href="javascript:void(0);">
+                <div class="img-wrap img-bg">
+                    <img src="https://cdn.orayimg.com/console/img/card_people_180827.jpg">
+                </div>
+                <p class="til">本人手持<span class="red">纸条</span>自拍</p>
+                <p class="text"><span class="red">纸条写明：仅用于信为金融实名认证</span></p>
+                <p class="text">文字需清晰可见<br>请不要使用美图工具</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+{/block}

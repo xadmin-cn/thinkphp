@@ -1,0 +1,31 @@
+{include file="header"}
+
+<div class="layui-card-body table-tool-mini layui-form">
+    <div class="layui-card-body layui-form layui-row" lay-filter="xadminForm" id="xadminForm">
+        <div class="layui-col-md12">
+            {include file="form_header"}
+            {if $local['form']!=""}
+            {foreach $local['form'] as $keys=>$value}
+            {include file="form_input"}
+            {/foreach}
+            {/if}
+        </div>
+        {if !((isset($local.xadmin.ispop) && $local.xadmin.ispop==false) ||  (isset($local.ispop) && $local.ispop==false))}
+        <div class="text-center" style="position: fixed;bottom: 0;z-index:99999999;left: 0;right: 0;background-color: #fff;box-shadow: 0 -1px 5px rgba(0,0,0,.15);padding: 5px;">
+            <button class="layui-btn" lay-filter="Xsubmit" lay-submit=""> 提 交 </button>
+            <button  class="close layui-btn layui-btn-primary"> 关 闭 </button>
+        </div>
+        {elseif isset($local.submitFixed) && $local.submitFixed==1}
+        <div class="text-center" style="position: fixed;bottom: 0;z-index:99999999;left: 0;right: 0;background-color: #fff;box-shadow: 0 -1px 5px rgba(0,0,0,.15);padding: 15px;">
+            <button class="layui-btn" lay-filter="Xsubmit" lay-submit=""> 提 交 </button>
+        </div>
+        {else}
+        <div class="layui-form-item text-center">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-filter="Xsubmit" lay-submit=""> 提交 </button>
+            </div>
+        </div>
+        {/if}
+    </div>
+
+</div>

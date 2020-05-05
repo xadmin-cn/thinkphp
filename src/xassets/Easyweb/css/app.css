@@ -1,0 +1,142 @@
+
+    /** 项目列表样式 */
+    .project-list-item {
+        background-color: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all .2s;
+    }
+
+    .project-list-item:hover {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+    }
+
+    .project-list-item .project-list-item-cover {
+        width: 100%;
+        height: 150px;
+        display: block;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+    }
+
+    .project-list-item-body {
+        padding: 20px;
+    }
+
+    .project-list-item .project-list-item-body > h2 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 12px;
+    }
+
+    .project-list-item .project-list-item-text {
+        height: 84px;
+        overflow: hidden;
+        margin-bottom: 12px;
+    }
+
+    .project-list-item .project-list-item-desc {
+        position: relative;
+    }
+
+    .project-list-item .project-list-item-desc .time {
+        color: #999;
+        font-size: 12px;
+    }
+
+    .project-list-item .project-list-item-desc .ew-head-list {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .ew-head-list .ew-head-list-item {
+        height: 22px;
+        border: 1px solid #fff;
+        margin-left: -10px;
+    }
+
+    .ew-head-list .ew-head-list-item:first-child {
+        margin-left: 0;
+    }
+
+    /** // 项目列表样式结束 */
+
+    /** 应用列表样式 */
+    .application-list-item {
+        background-color: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all .2s;
+    }
+
+    .application-list-item:hover {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, .15);
+    }
+
+    .application-list-item .application-list-item-header {
+        padding: 16px 12px 0 12px;
+    }
+
+    .application-list-item .application-list-item-header .head {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .application-list-item .application-list-item-header > h2 {
+        color: #333;
+        font-size: 18px;
+        display: inline-block;
+    }
+
+    .application-list-item .application-list-item-body {
+        padding: 12px 12px 12px 50px;
+        font-size: 0;
+    }
+
+    .application-list-item .application-list-item-body .text-num-item {
+        display: inline-block;
+        width: 50%;
+        font-size: 26px;
+        color: #666;
+    }
+
+    .application-list-item .application-list-item-body .text-num-item .text-num-item-title {
+        font-size: 12px;
+        color: #999;
+        margin-bottom: 10px;
+    }
+
+    .application-list-item .application-list-item-body .text-num-item small {
+        font-size: 16px;
+    }
+
+    .application-list-item .application-list-item-tool {
+        font-size: 0;
+        background-color: #FAFAFA;
+        border-top: 1px solid #e8e8e8;
+        padding: 10px 0 5px 0;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .application-list-item .application-list-item-tool .application-list-item-tool-item {
+        display: inline-block;
+        width: 25%;
+        font-size: 18px;
+        text-align: center;
+        color: #999;
+        border-right: 1px solid #e8e8e8;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+
+    .application-list-item .application-list-item-tool .application-list-item-tool-item:last-child {
+        border-right: none;
+    }
+
+    /** // 应用列表样式结束 */

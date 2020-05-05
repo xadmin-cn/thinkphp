@@ -1,0 +1,399 @@
+﻿{layout name="layout" /}
+<style>
+    .layui-tab-brief > .layui-tab-title .layui-this {
+        top: 0px;
+    }
+    .toolbar + table, .layui-card-body > .layui-table {
+        margin: -10px 0;
+    }
+    .table-tool-mini .layui-table-tool{
+        top:13px;
+        margin-right:16px;
+    }
+    .layui-table-tool-self {
+        position: fixed;
+        right: 35px;
+        top: 31px;
+    }
+    .layui-table-tool {
+        border: none;
+        line-height: 0px;
+        min-height:0px;
+        padding: 0px;
+    }
+    .layui-input-block .layui-form-select .layui-edge {
+        right: 15%;
+    }
+    .layui-fluid {
+        padding-left: 15px;
+        padding-top: 0px;
+        margin-top: -5px;
+    }
+    .help{
+        border: 1px solid #e0e0e0;padding: 10px; background-color: #f8f8f8;color: #787878;
+        position: relative;;
+        margin:0 15px;
+        margin-bottom: 20px;
+    }
+
+</style>
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body table-tool-mini">
+            <div class="layui-tab layui-tab-brief " lay-filter="tableXTab">
+                <ul class="layui-tab-title">
+                    <li class="layui-this"> <i class="{$local.icon|default=''}"></i> {$local.title|default=''}</li>
+                    <div class="layui-btn-group layui-left30" id="actionList" lay-filter="actionList">
+                    </div>
+                </ul>
+            </div>
+        </div>
+        {if isset($local.help)}
+        <blockquote class="help" style=""><icon class="layui-icon layui-icon-note"></icon> {$local.help}</blockquote>
+        {/if}
+        <div class="layui-card-body layui-form">
+
+            <table class="layui-table" id="tableLists" lay-filter="tableLists" ></table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/html" id="actionData">
+    {if $local.createShow==true}
+    <a class="layui-btn  layui-btn-sm   create layui-btn layer-ajax-form actionList"  lay-event="actionList" data='{"title":"添加","url":"/{$local.module}/create/open_type/{$local.openType|default='pop'}{$local.where|default=""|raw}","type":"{$local.openType|default='pop'}"}'><i class="fa fa-plus-circle"></i> 添加</a>
+    {/if}
+    {if $local.deletesShow==true}
+    <a class="layui-btn   layui-btn-sm layui-btn-danger actionList"  lay-event="actionList" data='{"title":"删除","url":"/{$local.module}/delete{$local.where|raw}","type":"delete","check":"id"}'><i class="fa fa-trash "></i> 删除</a>
+    {/if}
+    {if isset($local.actionList) && isset($local.actionList)}
+    {foreach name="local.actionList" key="name" item="item"}
+    <a  class="layui-btn  layui-btn-sm  layui-btn-normal actionList " style="background-color: {if isset($item.color)}{$item.color}{/if}" lay-event="actionList" data='<?php echo json_encode($item);?>'  ><i class=" {if isset($item.icon)}{$item.icon}{/if}"></i> {$item.title}</a>
+    {/foreach}
+    {/if}
+</script>
+
+
+<script type="text/html" id="listsearch">
+    {if isset($local.search) && count($local.search)>0}
+    <div id="list_search" class="clearfix hidden" style="display: block;">
+        <form method="post" action="" id="UserForm" class="layui-form layui-form-pane" novalidate="1">
+            <div class="layui-card-body">
+                <div class=" layui-form-item layui-row">
+                    {foreach $local.search as $keys=>$value}
+                        {if isset($value['type']) && ($value['type']=="select" || $value['type']=="radio")}
+                        <div class="layui-inline layui-col-md3">
+                            <label class="layui-form-label">{$value.name}:</label>
+                            <div class="layui-input-block">
+                                <select name="{$keys}" lay-vertype="tips" >
+                                    <option value="">请选择</option>
+                                    {foreach $value.options as $k=>$v}
+                                    <option value="{$k}" {if $value.value!='' && $k==$value.value}selected{/if}>{$v}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        {else}
+                        <div class="layui-inline layui-col-md3">
+                            <label class="layui-form-label">{$value.name|default=''}:</label>
+                            <div class="layui-input-block">
+                                <input name="{$keys}" type="text" placeholder="" class="layui-input" lay-vertype="tips"value="{$value.value|default=''}"  >
+                            </div>
+                        </div>
+                        {/if}
+                    {/foreach}
+                </div>
+            </div>
+
+            <div class="search_action">
+                <button class="layui-btn" lay-submit="">搜索</button>
+                <a href="{$local.thisUrl|default=''}" class="layui-btn layui-btn-primary">清空</a>
+            </div>
+        </form>
+    </div>
+    {/if}
+</script>
+<!-- 表格操作列 -->
+<script type="text/html" id="tableBar">
+    <div class="layui-btn-group">
+        {if !(isset($local.detailShow) && $local.detailShow==false)}
+        <a class="layui-btn layui-btn-primary layui-btn-sm layui-btn-success" lay-event="detail"  data='{"title":"查看","url":"/{$local.module}/detail{$local.where|raw}","key":"id","value":"id","type":"{$local.openType|default='pop'}"}'><i class="layui-icon layui-icon-form"></i>查看</a>
+        {/if}
+        {if !(isset($local.modifyShow) && $local.modifyShow==false)}
+        <a class="layui-btn layui-btn-primary layui-btn-sm layui-btn-normal" lay-event="edit"   data='{"title":"修改","url":"/{$local.module}/modify{$local.where|raw}/open_type/{$local.openType|default='pop'}","key":"id","value":"id","type":"{$local.openType|default='pop'}"}'><i class="layui-icon layui-icon-edit"></i>修改</a>
+        {/if}
+        {if !(isset($local.deleteShow) && $local.deleteShow==false)}
+        <a class="layui-btn layui-btn-danger layui-btn-sm layui-btn-danger" lay-event="del"  data='{"title":"删除","url":"/{$local.module}/delete{$local.where|raw}","key":"id","value":"id","type":"delete"}'><i class="layui-icon layui-icon-delete"></i>删除</a>
+        {/if}
+        {if isset($local.toolList) &&  isset($local.toolList)}
+        {foreach name="local.toolList" key="name" item="item"}
+        <a class="layui-btn  layui-btn-sm  {if isset($item.class)}{$item.class}{/if}" lay-event="tool" data='<?php echo json_encode($item);?>' ><i class="{$item.icon|default=''}"  ></i> {$item.title|default=''}</a>
+        {/foreach}
+        {/if}
+    </div>
+</script>
+
+
+<!-- js部分 -->
+<script>
+    // 工具条点击事件
+
+    layui.use(['layer', 'form','index', 'laytpl','table','treetable', 'util', 'admin'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var index = layui.index;
+        var form = layui.form;
+        var table = layui.table;
+        var laytpl = layui.laytpl;
+        var util = layui.util;
+        var admin = layui.admin;
+        var treetable = layui.treetable;
+        var module = "{$local.module}";
+        var action = "{$local.action}";
+        var parameter = "{$local.parameter|default=''}";
+        var cols = {$local.cols|default = ''};
+        var listsType = '{$local.listsType|default = 'lists'}';
+        var pageshow =  {if $local.pageShow}true{else}false{/if};
+        var url = '{$local.thisUrl}' + parameter + '/extend_form/data' + "{$local.where|default=""|raw}";
+        var insTb ='';
+        if(listsType=="lists"){
+             insTb = table.render({
+                elem: '#tableLists',
+                id: 'Lists',
+                url: url,
+                page: pageshow,
+                toolbar: "#listsearch",
+                cols: cols,
+            })
+        }else{
+             insTb = treetable.render({
+                elem: '#tableLists',
+                treeColIndex:{$local.treeIndex|default=2},
+                id: 'Lists',
+                treeSpid: 0,
+                toolbar: "#listsearch",
+                treeIdName: 'id',
+                treePidName: '{$local.cascaderKey|default="pid"}',
+                url: url,
+                cols: cols
+            })
+        }
+
+        //监听操作
+        form.on('switch(switch)', function(obj){
+            $.get("/"+module+'/'+action+parameter, {
+                action: 'switch',
+                id:this.value,
+                name:this.name,
+                check: obj.elem.checked
+            }, function (res) {
+                layer.msg("操作成功");
+            })
+        });
+        laytpl($("#actionData").html()).render({}, function(html){
+            $("#actionList").html(html);
+        });
+
+        // 工具条点击事件
+        table.on('tool(tableLists)', function (obj) {
+            redirec(this,obj)
+        });
+        //顶部导航
+        $('.actionList').click(function (obj) {
+            redirec(this)
+        })
+
+
+            redirec= function (e,obj='') {
+                data = $(e).attr("data");
+                data = JSON.parse(data)
+
+                var url = data.url;
+                //自带参数
+                {if isset($local.parameter)}
+                url = url+"{$local.parameter}";
+                {/if}
+
+                    if(data.key!='' && data.key!= undefined){
+                        url = url+"/"+data.key;
+                    }
+                    if(data.value!='' && data.value!= undefined){
+                        if (obj != '') {
+                            url = url+ "/"+obj.data[data.value];
+                        }
+                    }
+
+                    var title ='';
+                    var id ='';
+                    if(data.check!='' && data.check!= undefined){
+                        var checkStatus = layui.table.checkStatus('Lists').data;
+
+                        var datas =[];
+                        len=checkStatus.length;
+                        if(len==0){
+                            layer.alert("没有选择选项", {
+                                icon: 2,
+                            })
+                            return;
+                        }
+                        for(j = 0; j < len; j++) {
+                            if (checkStatus[j][data.check] != undefined){
+                                datas[j] = checkStatus[j][data.check];
+                            }
+                            if (checkStatus[j]['title'] != undefined){
+                                title = title +checkStatus[j]['title']+",";
+                            }
+                            if (checkStatus[j]['id'] != undefined){
+                                id = id +checkStatus[j]['id']+",";
+                            }
+                        }
+                        url = url+"/id/"+id;
+
+                    }else {
+                        if (obj != '' &&  obj.data.title!=undefined) {
+                            title = obj.data.title+data.title;
+                        }else{
+                            title = data.title;
+                        }
+                    }
+
+
+                    var type=data.type;
+
+                    if(type=='check') {
+                        var checkStatus = layui.table.checkStatus('Lists').data;
+                        var datas =[];
+                        len=checkStatus.length;
+                        if(len==0){
+                            layer.alert("没有选择选项", {
+                                icon: 2,
+                            })
+                            return;
+                        }
+                        for(j = 0; j < len; j++) {
+                            if (checkStatus[j][data.check] != undefined){
+                                datas[j] = checkStatus[j][data.check];
+                            }
+                            if (checkStatus[j]['title'] != undefined){
+                                title = title +checkStatus[j]['title']+",";
+                            }
+                            if (checkStatus[j]['id'] != undefined){
+                                id = id +checkStatus[j]['id']+",";
+                            }
+                        }
+                        url = url+"/id/"+id;
+                        $.get(url, {
+                        }, function (res) {
+                            //var res = $.parseJSON(data);
+                            if (res.result == 'success') {
+                                layer.msg(res.resultMsg, {icon: 1},function(){
+                                    insTb.reload({}, 'data');
+                                });
+
+                            } else {
+                                layer.msg(res.resultMsg, {icon: 2});
+                            }
+                        }, 'json');
+
+                    }else if(type=='delete'){
+                        if(title=='' || title==undefined){
+                            title = "id="+id+"的内容";
+                        }
+                        layer.confirm('确定要删除“' + title + '”吗？', {
+                            skin: 'layui-layer-admin',
+                            shade: .1
+                        }, function (i) {
+                            $.get(url, {
+
+                            }, function (res) {
+                                //var res = $.parseJSON(data);
+                                if (res.result == 'success') {
+                                    layer.msg(res.resultMsg, {icon: 1},function(){
+                                        if(listsType=="lists"){
+                                            insTb.reload({}, 'data');
+                                        }else{
+                                            window.location.reload();
+                                         }
+
+                                    });
+
+                                } else {
+                                    //墨绿深蓝风
+
+
+                                    layer.alert(res.resultMsg, {icon: 2});
+                                }
+                            }, 'json');
+                        });
+                    }else if(type=="post") {
+                        layer.msg('正在操作中', {icon: 1,shadeClose: false, },function(){
+                            $.post(url, function (result) {
+                                layer.alert(result.resultMsg, {
+                                    icon: 1,
+                                })
+                            });
+                        });
+
+
+                    }else  if(type=="pop" || open=='') {
+                        admin.open({
+                            type: 2,
+                            title: title,
+                            area: ['430px', '480px'],
+                            fixed: false, //不固定
+                            content: url+"/open_type/pop"
+                        })
+                    }else  if(type=="tab") {
+                        index.openTab({
+                            title: title,
+                            url: url,
+                            end: function() {
+                                // insTb.reload();
+                            }
+                        });
+                    }else  if(type=="prompt") {
+                        layer.prompt({
+                            formType: 0,
+                            value: '',
+                            title: '请输入手机号进行测试',
+                        }, function(value, index, elem){
+                            $.post(url+"/"+data.promptKey+"/"+value, function (result) {
+
+                                if(result.result=="success") {
+                                    layer.alert(result.resultMsg, {
+                                        icon: 1,
+                                    }, function () {
+                                        layer.closeAll();
+                                    })
+                                }else{
+                                    layer.alert(result.resultMsg, {
+                                        icon: 2,
+                                    })
+                                }
+
+                            });
+                        });
+
+                    }else  if(type=="url") {
+                        location.href= url ;
+                    }
+
+                }
+
+
+    })
+    $(document).ready(function(){
+        $(document).scroll(function() {
+            if($(document).scrollTop()>0){
+                $(".layui-table-tool-self").hide();
+            }else{
+                $(".layui-table-tool-self").show();
+            }
+
+        });
+    });
+
+</script>

@@ -1,0 +1,82 @@
+﻿{include file="Easyweb/header"}
+<link rel="stylesheet" href="/xadmin/Easyweb/css/app.css"/>
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <div class="layui-tab layui-tab-brief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">项目</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show" style="padding-top: 25px;">
+                        <div class="layui-row layui-col-space30" id="demoGrid2"></div>
+                    </div>
+                    <div class="layui-tab-item" style="padding-top: 25px;">
+                        <div class="layui-row layui-col-space30" id="demoGrid3"></div>
+                    </div>
+                    <div class="layui-tab-item">
+                        <div style="max-width: 730px;padding-left: 10px;">
+                            <div id="demoGrid1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 项目模板 -->
+<script type="text/html" id="demoGridItem2">
+    <div class="layui-col-md3">
+        <div class="project-list-item">
+            <img class="project-list-item-cover" src="{{d.cover}}"/>
+            <div class="project-list-item-body">
+                <h2>{{d.title}}</h2>
+                <div class="project-list-item-text layui-text">{{d.desc}}</div>
+
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<!-- 加载动画 -->
+<div class="page-loading">
+    <div class="ball-loader">
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- js部分 -->
+<script>
+    layui.use(['layer', 'dataGrid', 'admin', 'element', 'dropdown'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var dataGrid = layui.dataGrid;
+        var admin = layui.admin;
+        var element = layui.element;
+
+
+        // 项目
+        $.get('/data-grid2.json', function (res) {
+            dataGrid.render({
+                elem: '#demoGrid2',  // 容器
+                templet: '#demoGridItem2',  // 模板
+                data: res.data,  // url
+                page: {limit: 8, limits: [8, 16, 24, 32, 40]},  // 开启分页
+                onItemClick: function (obj) {  // item事件
+                    var index = obj.index + 1;
+                    layer.msg('点击了第' + index + '个', {icon: 1});
+                }
+            });
+        }, 'json');
+
+
+    });
+</script>
+
+</body>
+</html>

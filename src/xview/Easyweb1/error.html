@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>错误页面</title>
+    </head>
+
+<style>
+.log-body{
+    background: url('/xadmin/Default/images/error_bg.png')no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+div{margin-left:auto; margin-right:auto;}
+a {text-decoration: none; color: #1064A0;}
+a:hover {color: #0078D2;}
+img { border:none; }
+
+h1{font-size:44px; color:#0188DE; padding:20px 0px 10px 0px;}
+h2{color:#0188DE; font-size:16px; padding:10px 0px 40px 0px;}
+
+#page{width:910px; padding:20px 20px 40px 20px; margin-top:80px;}
+.button{width:180px; height:28px; margin-left:0px; margin-top:10px; background:#009CFF; border-bottom:4px solid #0188DE; text-align:center;}
+.button a{width:180px; height:28px; display:block; font-size:14px; color:#fff; }
+.button a:hover{ background:#5BBFFF;}
+</style>
+
+</head>
+<body class="log-body">
+
+<div id="page" style="border-style:dashed;border-color:#e4e4e4;line-height:30px;">
+	<h1>错误提醒</h1>
+	<span color="#666666">{$local['error']['title']}</span><br /><br />
+	<div class="button">
+		<a href="/index/main" title="返回首页" >返回首页</a>
+	</div>
+</div>
+
+
+
