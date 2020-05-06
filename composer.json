@@ -3,6 +3,7 @@
     "description": "xadmin thinkphp 6",
     "license": "Apache-2.0",
     "version": "1.0.1",
+    "homepage": "http://www.xadmin.cn/",
     "authors": [
         {
             "name": "ahui",
@@ -16,5 +17,10 @@
         "psr-4": {
             "xadmincn\\": "src"
         }
-    }   
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
 }
